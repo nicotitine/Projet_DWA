@@ -32,7 +32,7 @@ public class TypeController {
         return newType;
     }
 
-    @RequestMapping(value="/typesDiplome")
+    @RequestMapping(value="/typesDiplomes")
     @CrossOrigin(origins = "http://localhost:8080")
     public List<Type> getTypes() {
         return typeDao.findAll();

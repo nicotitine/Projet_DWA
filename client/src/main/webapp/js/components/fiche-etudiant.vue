@@ -9,22 +9,23 @@ module.exports = {
     methods: {},
     components: {
         'detail-etudiant' : httpVueLoader('js/components/detail-etudiant.vue')
-    },    
+    },
     data: function() {
         return {
             e: {
-                nom: "Foo",
-                prenom: "Bar"
+                code: "Foo",
+                descriptif: "Bar"
             }
         }
     },
     created: function() {
         var id = this.$route.params.id;
-        axios.get('http://localhost:8180/etudiants/' + id).then(response => {
+        axios.get('http://localhost:9090/etudiants/' + id).then(response => {
             this.e = response.data;
+            console.log(this.e)
         }, response => {
             // traiter en cas d'erreur
         });
-    }  
+    }
 }
 </script>

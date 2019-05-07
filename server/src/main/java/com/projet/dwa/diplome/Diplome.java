@@ -50,7 +50,7 @@ public class Diplome implements Serializable {
         return this.libelle;
     }
 
-    public String getdescriptif() {
+    public String getDescriptif() {
         return this.descriptif;
     }
 
@@ -58,7 +58,7 @@ public class Diplome implements Serializable {
         return this.type;
     }
 
-    public String getReponsable() {
+    public String getResponsable() {
         return this.responsable;
     }
 
@@ -66,11 +66,15 @@ public class Diplome implements Serializable {
         this.id = id;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
 
-    public void setdescriptif(String descriptif) {
+    public void setDescriptif(String descriptif) {
         this.descriptif = descriptif;
     }
 

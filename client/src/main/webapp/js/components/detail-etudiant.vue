@@ -1,8 +1,8 @@
 <template>
     <div>
         {{ code }} - {{ descriptif }}
-        <button class='btn btn-link' v-on:click='sayHello()'>Detail</button>
-    </div> 
+        
+    </div>
 </template>
 <script>
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
         sayHello: function() {
             this.$emit('click-detail');
             console.log("clicked");
-            
+
         }
     }
 }
