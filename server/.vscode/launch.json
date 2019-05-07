@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DwaApplication",
+            "request": "launch",
+            "mainClass": "com.projet.dwa.DwaApplication",
+            "projectName": "dwa"
+        }
+    ]
+}
