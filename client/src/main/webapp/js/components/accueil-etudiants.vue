@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h1>Liste des étudiants</h1>
+        <h1>Liste des diplomes</h1>
         <ul style='margin: 20px 20px;'>
-            <li v-for="e in etudiants" style="margin: 5px auto;">
-                <detail-etudiant v-on:click-detail="detail(e)" v-bind:nom="e.nom" v-bind:prenom="e.prenom" v-bind:annee-de-naissance="1980"></detail-etudiant>
+            <li v-for="e in diplomes" style="margin: 5px auto;">
+                <detail-etudiant v-on:click-detail="detail(e)" v-bind:code="e.code" v-bind:descriptif="e.descriptif" ></detail-etudiant>
             </li>
         </ul>
     </div>
@@ -13,29 +13,24 @@
 module.exports = {
     data: function() {
         return {
-            etudiants: [{
-                id: 1,
-                nom: "Doe",
-                prenom: "Jane"
-            },
-            {
-                id: 2,
-                nom: "Doe",
-                prenom: "John"
-            }]
+            diplomes: []
         }
     },
     components: {
         'detail-etudiant' : httpVueLoader('js/components/detail-etudiant.vue')
     },
     methods: {
-        detail: function(etudiant) {
-            this.$router.push({ name: "detail-etudiant", params: {id: etudiant.id}, props: {e: etudiant} })
+        detail: function(_diplome) {
+            this.$router.push({ name: "detail-etudiant", params: {id: _diplome.code}, props: {d: _diplome} })
         }
     },
     created: function() {
-        axios.get('http://localhost:8180/etudiants',{withCredentials: true}).then(response => {
-            this.etudiants = response.data;
+        axios.get('http://localhost:9090/diplomes',{withCredentials: false}).then(response => {
+            console.log(response.data);
+            
+            this.diplomes = response.data;
+            console.log(this.diplomes);
+            
         }, response => {
             // traiter en cas d'erreur
         });

@@ -1,7 +1,7 @@
 <template>
     <div>
 
-    <detail-etudiant v-bind:nom="e.nom" v-bind:prenom="e.prenom" v-bind:annee-de-naissance="1980"></detail-etudiant>
+    <detail-etudiant v-bind:code="e.code" v-bind:descriptif="e.descriptif"></detail-etudiant>
     </div>
 </template>
 <script>
