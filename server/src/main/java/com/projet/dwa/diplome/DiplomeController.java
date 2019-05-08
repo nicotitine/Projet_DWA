@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projet.dwa.DwaApplication;
 import com.projet.dwa.typeDiplome.Type;
 
 @RestController
@@ -27,6 +28,9 @@ public class DiplomeController {
     @RequestMapping(value="/diplomes")
     @CrossOrigin(origins = "http://localhost:8080")
     public List<Diplome> getDiplomes() {
+        System.out.println(DwaApplication.isInscriptionOpened);
+        DwaApplication.isInscriptionOpened = true;
+        System.out.println(DwaApplication.isInscriptionOpened);
         return diplomeDao.findAll();
     }
 
@@ -39,16 +43,8 @@ public class DiplomeController {
     @RequestMapping(value="/addDiplome", method = RequestMethod.POST)
     @Transactional
     @CrossOrigin(origins = "http://localhost:8080")
-    public Diplome addDiplome(@RequestParam("libelle") String libelle, @RequestParam("typeId") Long typeId) {
-        Diplome newDiplome = new Diplome();
-        newDiplome.setCode("0.212");
-        newDiplome.setResponsable("test resp");
-        newDiplome.setLibelle(libelle);
-        newDiplome.setDescriptif("test descri");
-        Type newType = new Type();
-        newType.setId(typeId);
-        newDiplome.setType(newType);
-
+    public Diplome addDiplome(@RequestParam("code") String code, @RequestParam("libelle") String libelle, @RequestParam("descriptif") String descriptif, @RequestParam("typeId") Long typeId, @RequestParam("typeLibelle") String typeLibelle, @RequestParam("responsable") String responsable) {
+        Diplome newDiplome = new Diplome(code, libelle, descriptif, new Type(typeId, typeLibelle), responsable);
 
 
         em.persist(newDiplome);

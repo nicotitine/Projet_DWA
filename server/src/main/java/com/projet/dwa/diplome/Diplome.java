@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import com.projet.dwa.typeDiplome.*;
 
 @Entity
@@ -14,7 +16,7 @@ public class Diplome implements Serializable {
     private static final long serialVersionUID = -3282201885115928765L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     private Long id;
 
     private String code;
@@ -29,6 +31,14 @@ public class Diplome implements Serializable {
 
     }
 
+    public Diplome(String code, String libelle, String descriptif, Type type, String responsable) {
+        this.code = code;
+        this.libelle = libelle;
+        this.descriptif = descriptif;
+        this.type = type;
+        this.responsable = responsable;
+    }
+
     public Diplome(Long id, String code, String libelle, String descriptif, Type type, String responsable) {
         this.id = id;
         this.code = code;
@@ -37,6 +47,8 @@ public class Diplome implements Serializable {
         this.type = type;
         this.responsable = responsable;
     }
+
+
 
     public Long getId() {
         return this.id;

@@ -13,7 +13,7 @@ public class UniteEnseignement implements Serializable {
     private static final long serialVersionUID = -8842097378115751532L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     private Long id;
 
     private String code;

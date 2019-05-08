@@ -25,7 +25,7 @@ public class TypeController {
     @RequestMapping(value="addType", method = RequestMethod.POST)
     @Transactional
     @CrossOrigin(origins = "http://localhost:8080")
-    public Type addType(@RequestParam("id") Long id, @RequestParam("libelle") String libelle) {
+    public Type addType(@RequestParam("libelle") String libelle) {
         Type newType = new Type(libelle);
         em.persist(newType);
 
