@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface InscriptionDao extends JpaRepository<Inscription, Integer> {
+public interface InscriptionDao extends JpaRepository<Inscription, Long> {
     List<Inscription> findTopByOrderByIdDesc();
 }

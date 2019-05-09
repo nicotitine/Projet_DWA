@@ -6,9 +6,10 @@
     <head>
         <meta charset="utf8">
         <link rel='stylesheet' href='webjars/bootstrap/4.2.1/css/bootstrap.min.css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Gestion des diplomes</title>
     </head>
-    <body class="bg-dark" style="padding-top: 75px;">
+    <body class="" style="padding-top: 75px; background: url(./images/background3.jpg) fixed no-repeat">
         <div id="vue">
             <div class="modal fade" role="dialog" id="confirmerInscriptionsModale">
                     <div class="modal-dialog" role="document">
@@ -29,7 +30,7 @@
                       </div>
                     </div>
                   </div>
-        <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-white" style="box-shadow: 0px 0px 10px black" id="navVue">
+        <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0px 0px 10px black" id="navVue">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,10 +38,10 @@
                     <div class="collapse navbar-collapse fixed justify-content-md-center" id="navbarsExample08">
                       <ul class="navbar-nav">
                         <li class="nav-item active">
-                          <h1 v-if="!isInscriptionsOuvertes"class="text-dark">Gestion des diplômes</h1>
-                          <h1 v-else class="text-dark">Gestion des inscriptions</h1>
+                          <h1 v-if="!isInscriptionsOuvertes"class="text-white">Gestion des diplômes</h1>
+                          <h1 v-else class="text-white">Gestion des inscriptions</h1>
                         </li>
-                        <li v-if="!isInscriptionsOuvertes" style="position: fixed; top: 18px; right:20px;">
+                        <li v-if="!isInscriptionsOuvertes" class="text-white" style="position: fixed; top: 18px; right:20px;">
                             Les insctiptions ne sont pas ouvertes. <button class="btn btn-primary ml-4" v-on:click="ouvrirConfirmationInscriptions">Ouvrir les inscriptions</button>
                         </li>
                       </ul>
@@ -48,7 +49,7 @@
                     
                   </nav>
         
-        <div id="gestionEtudiants" class='jumbotron pt-4 pb-4' style="width: 80%; margin: 40px auto;" v-if="!isInscriptionsOuvertes">                
+        <div id="gestionEtudiants" class='jumbotron pt-4 pb-4' style="width: 80%; margin: 40px auto; box-shadow: 0px 0px 15px black" v-if="!isInscriptionsOuvertes">                
             <h2>Liste des diplomes</h2>
             <br/>
             <table class='table'>
@@ -215,9 +216,38 @@
             
         </div>
 
-        <div id="gestionInsription" class='jumbotron pt-4 pb-4' style="width: 80%; margin: 40px auto;" v-if="isInscriptionsOuvertes">
+        <div id="gestionInsription" class='jumbotron pt-4 pb-4' style="overflow-x: auto ;width: 80%; margin: 40px auto; box-shadow: 0px 0px 15px black" v-if="isInscriptionsOuvertes">
             <h2>Liste des inscriptions</h2>
-
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Civilité</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Date de naissance</th>
+                        <th>Numéro et voie</th>
+                        <th>Ville</th>
+                        <th>Code postal</th>
+                        <th>Pays</th>
+                        <th>Diplome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="i in inscriptions">
+                        <td>{{i.referenceDossier}}</td>
+                        <td> {{i.civilite}} </td>
+                        <td> {{i.nom}} </td>
+                        <td> {{i.prenom}} </td>
+                        <td> {{i.dateDeNaissance}} </td>
+                        <td> {{i.numeroEtVoie}} </td>
+                        <td> {{i.ville}} </td>
+                        <td> {{i.codePostal}} </td>
+                        <td> {{i.pays}} </td>
+                        <td> {{i.diplomeId}} </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         </div>
         <script src="<c:url value = '/webjars/vue/2.5.16/vue.js'/>"></script>
@@ -238,6 +268,7 @@
                     diplomes : [],
                     typesDiplomes : [],
                     ues : [],
+                    inscriptions : [],
                     ajoutTypeEnCours: false,
                     libelleNouveauType : "",
                     nouveauDiplome: {
@@ -256,6 +287,26 @@
                 },
                 mounted: function() {
                     $.ajaxSetup({ traditional: true });
+
+                    window.setInterval(() => {
+                        axios.get('http://localhost:9090/getInscriptions',{withCredentials: false}).then(response => {
+                            console.log(response.data);
+            
+                            this.inscriptions = response.data
+            
+                        }, response => {
+                            // traiter en cas d'erreur
+                        });
+                    }, 3000);
+
+                    axios.get('http://localhost:9090/getInscriptions',{withCredentials: false}).then(response => {
+                        console.log(response.data);
+            
+                        this.inscriptions = response.data
+            
+                    }, response => {
+                        // traiter en cas d'erreur
+                    });
 
                     axios.get('http://localhost:9090/isInscriptionsOuvertes', {withCredentials: false}).then(response => {
                         console.log(response.data);
