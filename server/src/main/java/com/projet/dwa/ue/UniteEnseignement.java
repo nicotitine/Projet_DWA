@@ -3,6 +3,7 @@ package com.projet.dwa.ue;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class UniteEnseignement implements Serializable {
 
     private boolean obligatoire;
 
-    @ManyToMany(mappedBy = "ues")
+    @ManyToMany(mappedBy = "ues", cascade = CascadeType.ALL)
     private Set<Diplome> diplomes;
 
     public UniteEnseignement() {

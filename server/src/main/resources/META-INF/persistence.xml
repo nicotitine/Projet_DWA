@@ -5,6 +5,7 @@
     <class>com.project.dwa.typeDiplome.Type</class>
     <class>com.project.dwa.diplome.Diplome</class>
     <class>com.project.dwa.ue.UniteEnseignement</class>
+    <class>com.project.dwa.inscription.Inscription</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
       <property name="javax.persistence.jdbc.url"    value="jdbc:h2:mem:test" />
