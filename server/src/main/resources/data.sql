@@ -13,6 +13,8 @@ insert into diplome values(1, 'D1', 'long description', 'Carriou', 'info', 1);
 insert into diplome values(2, 'D31', 'description très longue', 'Théo guillerme', 'Technologies de l internet', 2);
 
 
+
+
 insert into unite_enseignement values(1, '00ff00', 'dwa', true);
 insert into unite_enseignement values(2, 'ff00ff', 'ISI', false);
 insert into unite_enseignement values(3, 'ff00ff', 'ISI', false);
@@ -27,5 +29,11 @@ insert into unite_enseignement values(10, 'ff00ff', 'ISI', false);
 insert into unite_enseignement values(11, 'ff00ff', 'ISI', false);
 insert into unite_enseignement values(12, 'ff00ff', 'ISI', false);
 insert into unite_enseignement values(13, 'ff00ff', 'ISI', false);
-insert into unite_enseignement values(14, 'ff00ff', 'ISI', false);
-insert into unite_enseignement values(15, 'ff00ff', 'ISI', false);
+insert into unite_enseignement values(14, 'ff00ff', 'ISI1', false);
+insert into unite_enseignement values(15, 'ff00ff', 'ISI2', false);
+
+insert into diplome_unites values(1, 1);
+insert into diplome_unites values(1, 2);
+
+insert into diplome_unites values(2, 14);
+insert into diplome_unites values(2, 15);

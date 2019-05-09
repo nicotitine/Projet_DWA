@@ -1,11 +1,15 @@
 package com.projet.dwa.ue;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.projet.dwa.diplome.Diplome;
 
 @Entity
 public class UniteEnseignement implements Serializable {
@@ -21,6 +25,9 @@ public class UniteEnseignement implements Serializable {
     private String libelle;
 
     private boolean obligatoire;
+
+    @ManyToMany(mappedBy = "ues")
+    private Set<Diplome> diplomes;
 
     public UniteEnseignement() {
 
