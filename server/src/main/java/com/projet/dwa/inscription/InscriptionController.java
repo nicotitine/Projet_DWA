@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,8 +64,6 @@ public class InscriptionController {
         inscriptionToUpdate.setPays(params.getPays());
         inscriptionToUpdate.setPrenom(params.getPrenom());
         inscriptionToUpdate.setReferenceDossier(params.getReferenceDossier());
-
-        System.out.println(inscriptionToUpdate.getId());
 
         inscriptionDao.save(inscriptionToUpdate);
 

@@ -65,6 +65,33 @@
                     </div>
                 </div>
             </div>
+
+            <div class="jumbotron pt-4 pb-4" style="width: 80%; margin: 40px auto; box-shadow: 0px 0px 15px black">
+                <h2>Catalogue des diplomes</h2>
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Libellé</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Responsable</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="d in diplomes">
+                            <td>{{d.code}}</td>
+                            <td>{{d.libelle}}</td>
+                            <td v-if="d.descriptif.length > 50">{{d.descriptif.substring(0,50) + "..."}}</td>
+                            <td v-else>{{d.descriptif}}</td>
+                            <td>{{d.type.libelle}}</td>
+                            <td>{{d.responsable}}</td>
+                            <td><button class="btn btn-link">détails</button><button class="btn btn-link">choisir</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
                 
             <div v-if="isInscriptionCommencee" class="jumbotron pt-4 pb-4" style="width: 60%; margin: 40px auto; box-shadow: 0px 0px 15px black">
                 <h2>Informations obligatoires</h2>
