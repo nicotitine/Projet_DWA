@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InscriptionDao extends JpaRepository<Inscription, Long> {
-    List<Inscription> findTopByOrderByIdDesc();
+    List<Inscription> findTopByOrderByIdDesc(); 
+    List<Inscription> findByReferenceDossier(String referenceDossier);
 }

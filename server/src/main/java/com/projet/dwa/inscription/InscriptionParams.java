@@ -15,12 +15,13 @@ public class InscriptionParams {
     private String prenom;
     private String referenceDossier;
     private Long diplomeId;
+    private Boolean validee;
 
     public InscriptionParams() {
-
+        this.validee = false;
     }
 
-    public InscriptionParams(Long id, String codePostal, String commune, String numeroEtVoie, String pays, String civilite, Date dateDeNaissance, String nom, String prenom, String referenceDossier, Long diplomeId) {
+    public InscriptionParams(Long id, String codePostal, String commune, String numeroEtVoie, String pays, String civilite, Date dateDeNaissance, String nom, String prenom, String referenceDossier, Long diplomeId, Boolean validee) {
         this.id = id;
         this.codePostal = codePostal;
         this.commune = commune;
@@ -32,6 +33,7 @@ public class InscriptionParams {
         this.prenom = prenom;
         this.referenceDossier = referenceDossier;
         this.diplomeId = diplomeId;
+        this.validee = validee;
     }
 
     public Long getId() {
@@ -78,6 +80,10 @@ public class InscriptionParams {
         return diplomeId;
     }
 
+    public Boolean getValidee() {
+        return validee;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -102,6 +108,10 @@ public class InscriptionParams {
         this.civilite = civilite;
     }
 
+    public void setDateDeNaissance(Date dateDeNaissance) {
+        this.dateDeNaissance = dateDeNaissance;
+    }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -118,4 +128,7 @@ public class InscriptionParams {
         this.diplomeId = diplomeId;
     }
 
+    public void setValidee(Boolean validee) {
+        this.validee = validee;
+    }
 }

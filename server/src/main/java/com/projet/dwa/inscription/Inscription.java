@@ -44,11 +44,13 @@ public class Inscription implements Serializable {
     @Column(name = "diplome_id")
     private Long diplomeId;
 
-    public Inscription() {
+    private Boolean validee;
 
+    public Inscription() {
+        
     }
 
-    public Inscription(String referenceDossier) {
+    public Inscription(String referenceDossier, Long id) {
         this.codePostal = "";
         this.commune = "";
         this.numeroEtVoie = "";
@@ -58,9 +60,11 @@ public class Inscription implements Serializable {
         this.nom = "";
         this.prenom = "";
         this.referenceDossier = referenceDossier;
+        this.diplomeId = id;
+        this.validee = false;
     } 
 
-    public Inscription(Long id, String codePostal, String commune, String numeroEtVoie, String pays, String civilite, Date dateDeNaissance, String nom, String prenom, String referenceDossier, Long diplomeId) {
+    public Inscription(Long id, String codePostal, String commune, String numeroEtVoie, String pays, String civilite, Date dateDeNaissance, String nom, String prenom, String referenceDossier, Long diplomeId, Boolean validee) {
         this.id = id;
         this.codePostal = codePostal;
         this.commune = commune;
@@ -72,6 +76,7 @@ public class Inscription implements Serializable {
         this.prenom = prenom;
         this.referenceDossier = referenceDossier;
         this.diplomeId = diplomeId;
+        this.validee = validee;
     }
 
     public Long getId() {
@@ -118,6 +123,10 @@ public class Inscription implements Serializable {
         return diplomeId;
     }
 
+    public Boolean getValidee() {
+        return validee;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -160,6 +169,14 @@ public class Inscription implements Serializable {
 
     public void setDiplomeId(Long diplomeId) {
         this.diplomeId = diplomeId;
+    }
+
+    public void setValidee(Boolean validee) {
+        this.validee = validee;
+    }
+
+    public String toString() {
+        return this.referenceDossier + " | Validee : " + this.validee;
     }
 
 }

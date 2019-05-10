@@ -26,7 +26,8 @@
       nom               VARCHAR(100) NOT NULL,
       prenom            VARCHAR(100) NOT NULL,
       reference_dossier VARCHAR(6) NOT NULL,
-      diplome_id bigint ,
+      diplome_id bigint NOT NULL,
+      validee BOOLEAN NOT NULL,
       PRIMARY KEY (id)
     );
   CREATE TABLE inscription_unites_optionnelles

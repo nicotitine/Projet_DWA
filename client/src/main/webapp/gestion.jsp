@@ -6,8 +6,9 @@
     <head>
         <meta charset="utf8"/>
         <link rel='stylesheet' href='webjars/bootstrap/4.2.1/css/bootstrap.min.css'/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <title>Gestion des diplomes</title>
+        <title>Gestion des inscriptions</title>
     </head>
 
     <body style="padding-top: 75px; background: url(./images/background3.jpg) fixed no-repeat">
@@ -94,7 +95,7 @@
 
                                     <div>
                                         <h5 class="mb-4">Les UEs du diplome</h5>
-                                        <table class="table mt-3 ml-4 mr-4" style="width: 90%;">
+                                        <table class="table text-center table-striped mt-3 ml-4 mr-4" style="width: 90%;">
                                             <thead>
                                                 <tr>
                                                     <th>Code</th>
@@ -105,16 +106,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="u in nouveauDiplome.ues">
-                                                    <td>
-                                                        {{u.code}}
-                                                    </td>
-                                                    <td>
-                                                        {{u.libelle}}
-                                                    </td>
-                                                    <td>
-                                                        {{u.obligatoire}}
-                                                    </td>
-                                                    <td>
+                                                    <td class="align-middle">{{u.code}}</td>
+                                                    <td class="align-middle">{{u.libelle}}</td>
+                                                    <td class="align-middle" v-if="u.obligatoire">oui</td>
+                                                    <td class="align-middle" v-else>non</td>
+                                                    <td class="align-middle">
                                                         <button class='btn btn-link' v-on:click="supprimerUeAuDiplome($event, u)">Supprimer</button>
                                                     </td>
                                                 </tr>
@@ -125,10 +121,10 @@
                                     <button type="submit" class="btn btn-primary">Ajouter</button>
                                 </form>
 
-                                <div class="" style="flex: 1; border-left: 2px solid #E9ECEF; margin: 20px; padding: 00px 20px;">
+                                <div style="flex: 1; border-left: 2px solid #E9ECEF; margin: 20px; padding: 00px 20px;">
                                     <h3>Liste des UEs</h3>
                                     <div style="overflow-y: auto; overflow-x: hidden; max-height: 400px">
-                                        <table class="table mt-3">
+                                        <table class="table table-striped text-center mt-3">
                                             <thead>
                                                 <tr>
                                                     <th>Code</th>
@@ -140,10 +136,11 @@
                                             <div>
                                                 <tbody>
                                                     <tr v-for="u in ues">
-                                                        <td>{{u.code}}</td>
-                                                        <td>{{u.libelle}}</td>
-                                                        <td>{{u.obligatoire}}</td>
-                                                        <td>
+                                                        <td class="align-middle">{{u.code}}</td>
+                                                        <td class="align-middle">{{u.libelle}}</td>
+                                                        <td class="align-middle" v-if="u.obligatoire">oui</td>
+                                                        <td class="align-middle" v-else>non</td>
+                                                        <td class="align-middle">
                                                             <button class="btn btn-link" v-on:click="ajouterUeAuDiplome($event, u)">Ajouter</button>
                                                         </td>
                                                     </tr>
@@ -151,22 +148,24 @@
                                             </div>
                                         </table>
                                     </div>
-                                    <div class="jumbotron pt-2 pb-2 pl-2 mt-4">
+                                    <form class="jumbotron pt-2 pb-2 pl-2 mt-4" v-on:submit="envoyerNouvelleUE">
                                         <h5>Ajouter une UE</h5>
                                         <div class="form-group ml-4">
                                             <label for="ajouterUECodeInput">Code</label>
-                                            <input class="form-control" id="ajouterUECodeInput" placeholder="6 caractères" v-model="nouvelleUE.code"/></div>
+                                            <input class="form-control" id="ajouterUECodeInput" placeholder="6 caractères" required minlength="6" maxlength="6" v-model="nouvelleUE.code"/>
+                                        </div>
                                         <div class="form-group ml-4">
                                             <label for="ajouterUELibelleInput">Libellé</label>
-                                            <input class="form-control" id="ajouterUELibelleInput" placeholder="Libellé..." v-model="nouvelleUE.libelle"/></div>
+                                            <input class="form-control" id="ajouterUELibelleInput" placeholder="Libellé..." v-model="nouvelleUE.libelle"/>
+                                        </div>
                                         <div class="form-group col-auto ml-4">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customControlAutosizing" v-model="nouvelleUE.obligatoire"/>
                                                 <label class="custom-control-label" for="customControlAutosizing">est obligatoire</label>
                                             </div>
                                         </div>
-                                        <button class='btn btn-primary ml-4' v-on:click="envoyerNouvelleUE">Ajouter l'UE</button>
-                                    </div>
+                                        <button class='btn btn-primary ml-4' >Ajouter l'UE</button>
+                                    </form>
 
                                 </div>
                             </div>
@@ -178,11 +177,7 @@
 
             <!-- NAVIGATION -->
             <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 0px 0px 10px black" id="navVue">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse fixed justify-content-md-center" id="navbarsExample08">
+                <div class=" navbar-collapse fixed justify-content-md-center" id="navbarsExample08">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <h1 v-if="!isInscriptionsOuvertes" class="text-white">Gestion des diplômes</h1>
@@ -201,7 +196,7 @@
             <div id="gestionEtudiants" class='jumbotron pt-4 pb-4' style="width: 80%; margin: 40px auto; box-shadow: 0px 0px 15px black" v-if="!isInscriptionsOuvertes">
                 <h2>Liste des diplomes</h2>
                 <br/>
-                <table class='table'>
+                <table class='table table-striped text-center'>
                     <thead>
                         <tr>
                             <th>Code</th>
@@ -209,18 +204,18 @@
                             <th>Description</th>
                             <th>Type</th>
                             <th>Responsable</th>
-                            <th>Détails</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="d in diplomes">
-                            <td>{{d.code}}</td>
-                            <td>{{d.libelle}}</td>
-                            <td v-if="d.descriptif.length > 50">{{d.descriptif.substring(0,50) + "..."}}</td>
-                            <td v-else="v-else">{{d.descriptif}}</td>
-                            <td>{{d.type.libelle}}</td>
-                            <td>{{d.responsable}}</td>
-                            <td>
+                            <td class="align-middle">{{d.code}}</td>
+                            <td class="align-middle">{{d.libelle}}</td>
+                            <td class="align-middle" v-if="d.descriptif.length > 50">{{d.descriptif.substring(0,50) + "..."}}</td>
+                            <td class="align-middle" v-else="v-else">{{d.descriptif}}</td>
+                            <td class="align-middle">{{d.type.libelle}}</td>
+                            <td class="align-middle">{{d.responsable}}</td>
+                            <td class="align-middle">
                                 <button class="btn btn-link" v-on:click="afficherDetailsDiplome($event, d)">détails</button>
                             </td>
                         </tr>
@@ -231,7 +226,7 @@
 
             <div id="gestionInsription" class='jumbotron pt-4 pb-4' style="overflow-x: auto ;width: 80%; margin: 40px auto; box-shadow: 0px 0px 15px black" v-if="isInscriptionsOuvertes">
                 <h2>Liste des inscriptions</h2>
-                <table class="table mt-4">
+                <table class="table table-striped text-center mt-4">
                     <thead>
                         <tr>
                             <th>Code</th>
@@ -244,38 +239,23 @@
                             <th>Code postal</th>
                             <th>Pays</th>
                             <th>Diplome</th>
+                            <th>Validée</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="i in inscriptions">
-                            <td>{{i.referenceDossier}}</td>
-                            <td>
-                                {{i.civilite}}
-                            </td>
-                            <td>
-                                {{i.nom}}
-                            </td>
-                            <td>
-                                {{i.prenom}}
-                            </td>
-                            <td>
-                                {{i.dateDeNaissance}}
-                            </td>
-                            <td>
-                                {{i.numeroEtVoie}}
-                            </td>
-                            <td>
-                                {{i.ville}}
-                            </td>
-                            <td>
-                                {{i.codePostal}}
-                            </td>
-                            <td>
-                                {{i.pays}}
-                            </td>
-                            <td>
-                                {{i.diplomeId}}
-                            </td>
+                            <td class="align-middle">{{i.referenceDossier}}</td>
+                            <td class="align-middle">{{i.civilite}}</td>
+                            <td class="align-middle">{{i.nom}}</td>
+                            <td class="align-middle">{{i.prenom}}</td>
+                            <td class="align-middle">{{i.dateDeNaissance}}</td>
+                            <td class="align-middle">{{i.numeroEtVoie}}</td>
+                            <td class="align-middle">{{i.ville}}</td>
+                            <td class="align-middle">{{i.codePostal}}</td>
+                            <td class="align-middle">{{i.pays}}</td>
+                            <td class="align-middle">{{i.diplomeId}}</td>
+                            <td v-if="i.validee" style="color: #00B462"><i class="fas fa-check-circle"></i></td>
+                            <td v-else style="color: #F44336"><i class="fas fa-times-circle"></i></td>
                         </tr>
                     </tbody>
                 </table>
@@ -322,7 +302,7 @@
 
                                     <div>
                                         <h5 class="mb-4 mt-4">Les UEs du diplome</h5>
-                                        <table class="table mt-3 ml-4 mr-4" style="width: 90%;">
+                                        <table class="table table-striped text-center mt-3 ml-4 mr-4" style="width: 90%;">
                                             <thead>
                                                 <tr>
                                                     <th>Code</th>
@@ -332,9 +312,10 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="u in selectedDiplome.ues">
-                                                    <td> {{u.code}} </td>
-                                                    <td> {{u.libelle}} </td>
-                                                    <td> {{u.obligatoire}} </td>
+                                                    <td class="align-middle">{{u.code}}</td>
+                                                    <td class="align-middle">{{u.libelle}}</td>
+                                                    <td class="align-middle" v-if="u.obligatoire">oui</td>
+                                                    <td class="align-middle" v-else>non</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -397,7 +378,14 @@
                     }
                 },
                 mounted: function () {
-                    $.ajaxSetup({traditional: true});
+                    axios.get('http://localhost:9090/isInscriptionsOuvertes', {withCredentials: false}).then(response => {
+                        console.log(response.data);
+
+                        this.isInscriptionsOuvertes = response.data;
+
+                    }, response => {
+                        // traiter en cas d'erreur
+                    });
 
                     window.setInterval(() => {
                         axios.get('http://localhost:9090/getInscriptions', {withCredentials: false}).then(response => {
@@ -419,14 +407,6 @@
                         // traiter en cas d'erreur
                     });
 
-                    axios.get('http://localhost:9090/isInscriptionsOuvertes', {withCredentials: false}).then(response => {
-                        console.log(response.data);
-
-                        this.isInscriptionsOuvertes = response.data;
-
-                    }, response => {
-                        // traiter en cas d'erreur
-                    })
 
                     axios.get('http://localhost:9090/diplomes', {withCredentials: false}).then(response => {
                         console.log(response.data);
@@ -503,7 +483,6 @@
                     },
 
                     envoyerNouveauDiplome(e) {
-
                         e.preventDefault();
                         $("#nouveauDiplomeModale").modal('hide');
                         axios({
@@ -548,6 +527,8 @@
 
                         e.preventDefault();
                     }
+
+
                 }
             })
         </script>
