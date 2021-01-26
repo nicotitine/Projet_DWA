@@ -1,5 +1,6 @@
 package com.projet.dwa.inscription;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -26,7 +27,11 @@ public class InscriptionController {
     @Transactional
     @CrossOrigin(origins = "http://localhost:8080")
     public Inscription generateNewInscription(@RequestParam("referenceDossier") Long referenceDossier) {
-        Inscription last = inscriptionDao.findTopByOrderByIdDesc().get(0);
+        List<Inscription> inscriptions = inscriptionDao.findTopByOrderByIdDesc();
+        Inscription last = null;
+        if(inscriptions != null && inscriptions.size() > 0) {
+            last = inscriptions.get(0);
+        }
         String newCode = "IE0000";
 
         if(last != null) {
