@@ -2,6 +2,7 @@ package com.projet.dwa.inscription;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,22 +29,18 @@ public class InscriptionController {
     @CrossOrigin(origins = "http://localhost:8080")
     public Inscription generateNewInscription(@RequestParam("referenceDossier") Long referenceDossier) {
         List<Inscription> inscriptions = inscriptionDao.findTopByOrderByIdDesc();
-        Inscription last = null;
-        if(inscriptions != null && inscriptions.size() > 0) {
-            last = inscriptions.get(0);
-        }
+        Optional<Inscription> last = Optional.empty();
+        if(inscriptions != null && inscriptions.size() > 0) last =  Optional.of(inscriptions.get(0));
+        
         String newCode = "IE0000";
 
-        if(last != null) {
-            newCode = last.getReferenceDossier().replaceAll("[^\\d.]", "");
-            newCode =  "IE" + String.format("%04d", (Integer.parseInt(newCode) + 1));
+        if(last.isPresent()) {
+            newCode = last.get().getReferenceDossier().replaceAll("[^\\d.]", "");
+            newCode = "IE" + String.format("%04d", (Integer.parseInt(newCode) + 1));
         }
 
         Inscription newInscription = new Inscription(newCode, referenceDossier);
         em.persist(newInscription);
-
-        System.out.println(newInscription);
-
         return newInscription;
     }
 
